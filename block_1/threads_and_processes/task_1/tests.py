@@ -37,7 +37,7 @@ class Test(TestCase):
         self.Composer = Composer
 
     def _get_front(self):
-        composer = self.Composer()
+        self.composer = composer = self.Composer()
         composer.start()
         front = composer.get_front()
 
