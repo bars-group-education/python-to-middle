@@ -47,5 +47,8 @@ class Test(TestCase):
         instance.a = 0
         self.assertEqual(instance.a, 0)
 
-        self.assertRaises(AttributeError, instance.b)
-        self.assertRaises(TypeError, instance + 1)
+        with self.assertRaises(AttributeError):
+            instance.b
+
+        with self.assertRaises(TypeError):
+            instance + 1
