@@ -1,0 +1,194 @@
+[
+    {
+        "alternate_name": null,
+        "country": "Canada",
+        "fifa_code": "CAN",
+        "group_id": 5,
+        "group_letter": "E",
+        "id": 17
+    },
+    {
+        "alternate_name": null,
+        "country": "Scotland",
+        "fifa_code": "SCO",
+        "group_id": 4,
+        "group_letter": "D",
+        "id": 14
+    },
+    {
+        "alternate_name": null,
+        "country": "Australia",
+        "fifa_code": "AUS",
+        "group_id": 3,
+        "group_letter": "C",
+        "id": 9
+    },
+    {
+        "alternate_name": null,
+        "country": "Argentina",
+        "fifa_code": "ARG",
+        "group_id": 4,
+        "group_letter": "D",
+        "id": 15
+    },
+    {
+        "alternate_name": null,
+        "country": "Italy",
+        "fifa_code": "ITA",
+        "group_id": 3,
+        "group_letter": "C",
+        "id": 10
+    },
+    {
+        "alternate_name": null,
+        "country": "New Zealand",
+        "fifa_code": "NZL",
+        "group_id": 5,
+        "group_letter": "E",
+        "id": 19
+    },
+    {
+        "alternate_name": null,
+        "country": "Korea Republic",
+        "fifa_code": "KOR",
+        "group_id": 1,
+        "group_letter": "A",
+        "id": 2
+    },
+    {
+        "alternate_name": null,
+        "country": "Thailand",
+        "fifa_code": "THA",
+        "group_id": 6,
+        "group_letter": "F",
+        "id": 22
+    },
+    {
+        "alternate_name": null,
+        "country": "Chile",
+        "fifa_code": "CHI",
+        "group_id": 6,
+        "group_letter": "F",
+        "id": 23
+    },
+    {
+        "alternate_name": null,
+        "country": "China PR",
+        "fifa_code": "CHN",
+        "group_id": 2,
+        "group_letter": "B",
+        "id": 6
+    },
+    {
+        "alternate_name": null,
+        "country": "Japan",
+        "fifa_code": "JPN",
+        "group_id": 4,
+        "group_letter": "D",
+        "id": 16
+    },
+    {
+        "alternate_name": null,
+        "country": "England",
+        "fifa_code": "ENG",
+        "group_id": 4,
+        "group_letter": "D",
+        "id": 13
+    },
+    {
+        "alternate_name": null,
+        "country": "Norway",
+        "fifa_code": "NOR",
+        "group_id": 1,
+        "group_letter": "A",
+        "id": 3
+    },
+    {
+        "alternate_name": null,
+        "country": "Brazil",
+        "fifa_code": "BRA",
+        "group_id": 3,
+        "group_letter": "C",
+        "id": 11
+    },
+    {
+        "alternate_name": null,
+        "country": "Sweden",
+        "fifa_code": "SWE",
+        "group_id": 6,
+        "group_letter": "F",
+        "id": 24
+    },
+    {
+        "alternate_name": null,
+        "country": "South Africa",
+        "fifa_code": "RSA",
+        "group_id": 2,
+        "group_letter": "B",
+        "id": 8
+    },
+    {
+        "alternate_name": null,
+        "country": "Cameroon",
+        "fifa_code": "CMR",
+        "group_id": 5,
+        "group_letter": "E",
+        "id": 18
+    },
+    {
+        "alternate_name": null,
+        "country": "Jamaica",
+        "fifa_code": "JAM",
+        "group_id": 3,
+        "group_letter": "C",
+        "id": 12
+    },
+    {
+        "alternate_name": null,
+        "country": "USA",
+        "fifa_code": "USA",
+        "group_id": 6,
+        "group_letter": "F",
+        "id": 21
+    },
+    {
+        "alternate_name": null,
+        "country": "France",
+        "fifa_code": "FRA",
+        "group_id": 1,
+        "group_letter": "A",
+        "id": 1
+    },
+    {
+        "alternate_name": null,
+        "country": "Netherlands",
+        "fifa_code": "NED",
+        "group_id": 5,
+        "group_letter": "E",
+        "id": 20
+    },
+    {
+        "alternate_name": null,
+        "country": "Germany",
+        "fifa_code": "GER",
+        "group_id": 2,
+        "group_letter": "B",
+        "id": 5
+    },
+    {
+        "alternate_name": null,
+        "country": "Nigeria",
+        "fifa_code": "NGA",
+        "group_id": 1,
+        "group_letter": "A",
+        "id": 4
+    },
+    {
+        "alternate_name": null,
+        "country": "Spain",
+        "fifa_code": "ESP",
+        "group_id": 2,
+        "group_letter": "B",
+        "id": 7
+    }
+]
