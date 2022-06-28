@@ -34,7 +34,7 @@ class Test(TestCase):
     def test_film(self):
         self.add_to_shop(Film('Время первых'))
         self.add_to_shop(Film('Легенда 17'))
-        self.add_to_shop(Film('Зездная пыль'))
+        self.add_to_shop(Film('Звездная пыль'))
 
         self.assertEqual(self.get_samples(), ['Время', 'Леген', 'Звезд'])
 
