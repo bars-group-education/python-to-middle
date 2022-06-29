@@ -92,5 +92,5 @@ class ContractDeveloper(Employee):
         return 100.0
 
     @salary_method
-    def calculate_month_salary(self):
+    def calculate_contract_salary(self):
         return self.hourly_rate + self.hours_in_month
