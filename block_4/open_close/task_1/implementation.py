@@ -1,10 +1,15 @@
 from enum import Enum
 
+BASE_DISCOUNT = 5
+
 
 class CardType(Enum):
     BRONZE = 1
     SILVER = 2
     GOLD = 3
+
+    def get_discont(self):
+        return BASE_DISCOUNT + self.value * BASE_DISCOUNT
 
 
 class Product(Enum):
@@ -12,35 +17,16 @@ class Product(Enum):
     B = 20000
     C = 30000
 
+    def get_cost(self):
+        return self.value
+
 
 class CashBox:
 
     def get_total_sum(self, product, card_type):
-        if product == Product.A:
-            cost = Product.A.value
-        elif product == Product.B:
-            cost = Product.B.value
-        elif product == Product.C:
-            cost = Product.C.value
-        else:
-            cost = 0
-
-        discount = 5
-
-        if card_type == CardType.BRONZE:
-            discount += 5
-
-        elif card_type == CardType.SILVER:
-            discount += 10
-
-        elif card_type == CardType.GOLD:
-            discount += 15
+        cost = product.get_cost()
+        discount = card_type.get_discont()
 
         total_sum = cost - (cost * discount / 100.0)
 
         return total_sum
-
-
-
-
-

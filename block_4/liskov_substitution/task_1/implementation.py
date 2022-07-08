@@ -7,11 +7,14 @@ class Account:
     def deposit(self, amount):
         raise NotImplementedError
 
+
+class WithdrawableAccount(Account):
+
     def withdraw(self, amount):
         raise NotImplementedError
 
 
-class DynamicAccount(Account):
+class DynamicAccount(WithdrawableAccount):
 
     def deposit(self, amount):
         self._balance += amount
@@ -24,7 +27,7 @@ class DynamicAccount(Account):
         return self._balance
 
 
-class SavingAccount(Account):
+class SavingAccount(WithdrawableAccount):
 
     def deposit(self, amount):
         self._balance += amount
@@ -44,8 +47,5 @@ class NonWithdrawableAccount(Account):
 
         return self._balance
 
-    def withdraw(self, amount):
-        raise Exception('Со счета с данным типом нельзя снимать деньги')
 
-
-BaseAccountClass = Account
+BaseAccountClass = WithdrawableAccount

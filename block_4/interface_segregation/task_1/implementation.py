@@ -8,7 +8,14 @@ class Employee:
 
     @property
     def name(self):
+        return self.__class__.__name__
+
+    @salary_method
+    def calculate_salary(self):
         raise NotImplementedError
+
+
+class MonthlyBilled:
 
     @property
     def monthly_salary(self):
@@ -18,28 +25,20 @@ class Employee:
     def other_benefits(self):
         raise NotImplementedError
 
+
+class HourlyRate:
     @property
     def hourly_rate(self):
         raise NotImplementedError
 
+
+class HoursPerMonth:
     @property
     def hours_in_month(self):
         raise NotImplementedError
 
-    @salary_method
-    def calculate_month_salary(self):
-        raise NotImplementedError
 
-    @salary_method
-    def calculate_contract_salary(self):
-        raise NotImplementedError
-
-
-class FullTimeDeveloper(Employee):
-
-    @property
-    def name(self):
-        return self.__class__.__name__
+class FullTimeDeveloper(Employee, MonthlyBilled):
 
     @property
     def monthly_salary(self):
@@ -50,15 +49,11 @@ class FullTimeDeveloper(Employee):
         return 10000
 
     @salary_method
-    def calculate_month_salary(self):
+    def calculate_salary(self):
         return self.monthly_salary + self.other_benefits
 
 
-class PartTimeDeveloper(Employee):
-
-    @property
-    def name(self):
-        return self.__class__.__name__
+class PartTimeDeveloper(Employee, MonthlyBilled, HoursPerMonth):
 
     @property
     def monthly_salary(self):
@@ -73,15 +68,11 @@ class PartTimeDeveloper(Employee):
         return 100.0
 
     @salary_method
-    def calculate_month_salary(self):
+    def calculate_salary(self):
         return self.monthly_salary / 200.0 * self.hours_in_month + self.other_benefits
 
 
-class ContractDeveloper(Employee):
-
-    @property
-    def name(self):
-        return self.__class__.__name__
+class ContractDeveloper(Employee, HoursPerMonth, HourlyRate):
 
     @property
     def hourly_rate(self):
@@ -92,5 +83,5 @@ class ContractDeveloper(Employee):
         return 100.0
 
     @salary_method
-    def calculate_contract_salary(self):
-        return self.hourly_rate + self.hours_in_month
+    def calculate_salary(self):
+        return self.hourly_rate * self.hours_in_month

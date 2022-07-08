@@ -17,6 +17,11 @@ class RecordStore:
     def __init__(self) -> None:
         super().__init__()
         self._records = []
+        self.exporter = StoreExporter(self)
+
+    @property
+    def records(self):
+        return self._records
 
     def add_record(self, record):
         self._records.append(record)
@@ -25,7 +30,18 @@ class RecordStore:
         self._records.remove(record)
 
     def to_json(self):
-        result = json.dumps([x.as_dict() for x in self._records])
+        return self.exporter.to_json()
+
+    def save_to_file(self, path):
+        self.exporter.save_to_file(path)
+
+
+class StoreExporter:
+    def __init__(self, store: RecordStore) -> None:
+        self.store = store
+
+    def to_json(self):
+        result = json.dumps([x.as_dict() for x in self.store.records])
 
         return result
 
