@@ -1,4 +1,3 @@
-import abc
 from dataclasses import dataclass
 from abc import ABCMeta, abstractmethod
 
@@ -12,7 +11,7 @@ class Animal:
     roar: str = None  # рев
 
 
-class BuilderAnimal(metaclass=abc.ABCMeta):
+class BuilderAnimal(metaclass=ABCMeta):
     """Абстрактный построитель животных"""
     def __init__(self):
         self._animal = Animal()
@@ -59,6 +58,7 @@ class CatBuilder(BuilderAnimal):
 
 class CuckooBuilder(BuilderAnimal):
     """Создание кукушки"""
+
     def set_name(self):
         self._animal.name = 'cuckoo'
 
@@ -74,6 +74,7 @@ class CuckooBuilder(BuilderAnimal):
 
 class FishBuilder(BuilderAnimal):
     """Создание рыбы"""
+
     def set_name(self):
         self._animal.name = 'fish'
 

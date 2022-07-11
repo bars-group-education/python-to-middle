@@ -1,72 +1,91 @@
-from dataclasses import dataclass
-import uuid
 import random
-from queue import LifoQueue, Empty
-# если нужно, импортируйте дополнительные модули
+import uuid
+from abc import ABC
+from abc import abstractmethod
+from dataclasses import dataclass
+from queue import Empty
+from queue import LifoQueue
+
+
+class CellPrototype(ABC):
+    @abstractmethod
+    def clone(self):
+        pass
 
 
 @dataclass
-class Cell:
-    """Клетка - обьект игры"""
+class Cell(CellPrototype):
+    """Клетка - обьект игры."""
+
     color: tuple = (0, 0, 0)
-    name: str = uuid.uuid4()
+    name: uuid.UUID = uuid.uuid4()
     size: int = random.randint(1, 10)
 
-    # если необходимо, снабдите Клетку функцией копирования
+    def clone(self):
+        new = self.__class__(self.color, self.name, self.size)
+        new.__dict__.update(self.__dict__)
+
+        return new
 
 
 class PoolCell:
-    """Клеточный пул"""
+    """Клеточный пул."""
 
     def __init__(self):
         self.queue = LifoQueue()
         self.etalon_cell = Cell()
 
     def get(self):
-        """
-            Получение клетки из пула
+        """Получение клетки из пула.
+
         :return: полученная клетка
         """
         try:
             cell = self.queue.get_nowait()
         except Empty:
-            # добавьте свой код сюда - необходимо скопировать эталлонную ячейку self.etalon_cell
-            cell.color = lambda: (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+            cell = self.etalon_cell.clone()
+            cell.color = (
+                random.randint(0, 255),
+                random.randint(0, 255),
+                random.randint(0, 255),
+            )
 
         return cell
 
     def release(self, cell):
-        """
-            Возврат клетки в пул
+        """Возврат клетки в пул.
+
         :param cell: возвращаемая клетка
         """
-        # добавьте свой код сюда
+        self.queue.put(cell)
 
     def size(self):
-        """Текущий размер пула"""
-        # добавьте свой код сюда
+        """Текущий размер пула."""
+        return self.queue.qsize()
 
 
 class LiveGame:
-    """ Класс игры ЖИЗНЬ """
+    """Класс игры ЖИЗНЬ."""
 
     def __init__(self, pool):
-        """
-            Инициализация класса
+        """Инициализация класса.
+
         :param pool: пул с клетками
         """
         self.pool = pool
 
     def give_birth_cell(self):
-        """
-            Породить новую клетку
+        """Породить новую клетку.
+
         :return: новорожденная клетка
         """
-        return self.pool.get()
+        cell = self.pool.get()
+        print(cell)
+        return cell
 
     def kill_cell(self, cell):
-        """
-            Убиваваем клетку
+        """Убиваваем клетку.
+
         :param cell: клетка, которую нужно убить
         """
         self.pool.release(cell)

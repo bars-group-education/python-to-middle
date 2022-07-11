@@ -1,58 +1,56 @@
 import abc
-from abc import abstractmethod
 from dataclasses import dataclass
-from typing import Optional
+from abc import ABCMeta, abstractmethod
 
 
 @dataclass
 class Animal:
-    """Абстрактное животное."""
+    """Абстрактное животное"""
     name: str = ''  # имя
     legs_count: int = 0  # количество ног
     wing_exist: bool = False  # флаг, есть ли крылья или нет
-    roar: Optional[str] = None  # рев
+    roar: str = None  # рев
 
 
 class BuilderAnimal(metaclass=abc.ABCMeta):
-    """Абстрактный построитель животных."""
+    """Абстрактный построитель животных"""
     def __init__(self):
         self._animal = Animal()
 
     @abstractmethod
     def set_name(self):
-        """Назначим имя животному."""
+        """Назначим имя животному"""
         pass
 
     @abstractmethod
     def set_legs_count(self):
-        """Установим количество ног."""
+        """Установим количество ног"""
         pass
 
     @abstractmethod
-    def set_wing_exist(self):
-        """Отметим, есть крылья или нет."""
+    def set_wing_exit(self):
+        """Отметим, есть крылья или нет"""
         pass
 
     def set_roar(self):
-        """Установим, может ли животное говорить и что оно говорит."""
+        """Установим, может ли животное говорить и что оно говорит"""
         pass
 
     @property
     def animal(self):
-        """Получение животного."""
+        """Получение животного"""
         return self._animal
 
 
 class CatBuilder(BuilderAnimal):
-    """Создание кошки."""
-
+    """Создание кошки"""
     def set_name(self):
         self._animal.name = 'cat'
 
     def set_legs_count(self):
         self._animal.legs_count = 4
 
-    def set_wing_exist(self):
+    def set_wing_exit(self):
         self._animal.wing_exist = False
 
     def set_roar(self):
@@ -60,7 +58,7 @@ class CatBuilder(BuilderAnimal):
 
 
 class CuckooBuilder(BuilderAnimal):
-    """Создание кукушки."""
+    """Создание кукушки"""
 
     def set_name(self):
         self._animal.name = 'cuckoo'
@@ -68,7 +66,7 @@ class CuckooBuilder(BuilderAnimal):
     def set_legs_count(self):
         self._animal.legs_count = 2
 
-    def set_wing_exist(self):
+    def set_wing_exit(self):
         self._animal.wing_exist = True
 
     def set_roar(self):
@@ -76,7 +74,7 @@ class CuckooBuilder(BuilderAnimal):
 
 
 class FishBuilder(BuilderAnimal):
-    """Создание рыбы."""
+    """Создание рыбы"""
 
     def set_name(self):
         self._animal.name = 'fish'
@@ -84,7 +82,7 @@ class FishBuilder(BuilderAnimal):
     def set_legs_count(self):
         self._animal.legs_count = 0
 
-    def set_wing_exist(self):
+    def set_wing_exit(self):
         self._animal.wing_exist = False
 
     def set_roar(self):
@@ -92,16 +90,15 @@ class FishBuilder(BuilderAnimal):
 
 
 class ZooOwner:
-    """Владелец зоопарка."""
-
+    """Владелец зоопарка"""
     @staticmethod
     def create_animal(builder: BuilderAnimal):
-        """Создание животного с помощью конкретного билдера.
-
+        """
+            Создание животного с помощью конкретного билдера
         :param builder: билдер
         :return:
         """
         builder.set_name()
         builder.set_legs_count()
-        builder.set_wing_exist()
+        builder.set_wing_exit()
         builder.set_roar()
