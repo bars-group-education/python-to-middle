@@ -1,18 +1,29 @@
+from copy import deepcopy
 from dataclasses import dataclass
 import uuid
 import random
 from queue import LifoQueue, Empty
-# если нужно, импортируйте дополнительные модули
 
 
 @dataclass
-class Cell:
+class ICloneable:
+
+    def clone(self):
+        raise NotImplementedError
+
+
+@dataclass
+class Cell(ICloneable):
     """Клетка - обьект игры"""
     color: tuple = (0, 0, 0)
     name: str = uuid.uuid4()
     size: int = random.randint(1, 10)
 
-    # если необходимо, снабдите Клетку функцией копирования
+    def clone(self):
+        new_instance = deepcopy(self)
+        new_instance.color = random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)
+
+        return new_instance
 
 
 class PoolCell:
@@ -31,7 +42,7 @@ class PoolCell:
             cell = self.queue.get_nowait()
         except Empty:
             # добавьте свой код сюда - необходимо скопировать эталлонную ячейку self.etalon_cell
-            cell.color = lambda: (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+            cell = self.etalon_cell.clone()
 
         return cell
 
@@ -41,10 +52,12 @@ class PoolCell:
         :param cell: возвращаемая клетка
         """
         # добавьте свой код сюда
+        self.queue.put(cell)
 
     def size(self):
         """Текущий размер пула"""
         # добавьте свой код сюда
+        return self.queue.qsize()
 
 
 class LiveGame:

@@ -16,6 +16,7 @@ class BuilderAnimal(metaclass=abc.ABCMeta):
     """Абстрактный построитель животных"""
     def __init__(self):
         self._animal = Animal()
+        self._is_built = False
 
     @abstractmethod
     def set_name(self):
@@ -34,11 +35,17 @@ class BuilderAnimal(metaclass=abc.ABCMeta):
 
     def set_roar(self):
         """Установим, может ли животное говорить и что оно говорит"""
-        pass
+        return self
+
+    def _build(self):
+        self.set_name().set_legs_count().set_wing_exit().set_roar()
 
     @property
     def animal(self):
         """Получение животного"""
+        if not self._is_built:
+            self._build()
+
         return self._animal
 
 
@@ -46,17 +53,71 @@ class CatBuilder(BuilderAnimal):
     """Создание кошки"""
     def set_name(self):
         self._animal.name = 'cat'
-    # добавьте свой код сюда
+
+        return self
+
+    def set_legs_count(self):
+        self._animal.legs_count = 4
+
+        return self
+
+    def set_wing_exit(self):
+        self._animal.wing_exist = False
+
+        return self
+
+    def set_roar(self):
+        self._animal.roar = 'meow'
+
+        return self
 
 
 class CuckooBuilder(BuilderAnimal):
     """Создание кукушки"""
-    # добавьте свой код сюда
+
+    def set_name(self):
+        self._animal.name = 'cuckoo'
+
+        return self
+
+    def set_legs_count(self):
+        self._animal.legs_count = 2
+
+        return self
+
+    def set_wing_exit(self):
+        self._animal.wing_exist = True
+
+        return self
+
+    def set_roar(self):
+        self._animal.roar = 'cucu'
+
+        return self
 
 
 class FishBuilder(BuilderAnimal):
     """Создание рыбы"""
-    # добавьте свой код сюда
+
+    def set_name(self):
+        self._animal.name = 'fish'
+
+        return self
+
+    def set_legs_count(self):
+        self._animal.legs_count = 0
+
+        return self
+
+    def set_wing_exit(self):
+        self._animal.wing_exist = False
+
+        return self
+
+    def set_roar(self):
+        self._animal.roar = None
+
+        return self
 
 
 class ZooOwner:
@@ -68,7 +129,4 @@ class ZooOwner:
         :param builder: билдер
         :return:
         """
-        builder.set_name()
-        builder.set_legs_count()
-        builder.set_wing_exit()
-        builder.set_roar()
+        return builder.animal
