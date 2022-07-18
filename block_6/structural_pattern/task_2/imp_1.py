@@ -56,80 +56,24 @@ class Car:
         self.state['engine_work'] = False
 
 
-class CarCommand:
-
-    def __init__(self, car) -> None:
-        super().__init__()
-        self.car = car
-
-    def do(self):
-        raise NotImplementedError
-
-    def undo(self):
-        raise NotImplementedError
-
-
-class KeyCommand(CarCommand):
-
-    def do(self):
-        self.car.open()
-
-    def undo(self):
-        self.car.close()
-
-
-class EngineCommand(CarCommand):
-
-    def do(self):
-        self.car.start_engine()
-
-    def undo(self):
-        self.car.stop_engine()
-
-
-class MoveCommand(CarCommand):
-
-    def do(self):
-        self.car.start_moving()
-
-    def undo(self):
-        self.car.stop_moving()
-
-
-class DriveCommand(CarCommand):
-
-    def __init__(self, car) -> None:
-        super().__init__(car)
-        self.commands = (
-            KeyCommand(self.car),
-            EngineCommand(self.car),
-            MoveCommand(self.car),
-        )
-
-    def do(self):
-        for command in self.commands:
-            command.do()
-
-    def undo(self):
-        for command in reversed(self.commands):
-            command.undo()
-
-
 class Driver:
     """Водитель автомобиля"""
 
     def __init__(self):
         self.car = Car()
-        self.command = DriveCommand(self.car)
 
     def start_use(self):
         """Начать использование автомобиля как средства передвижения"""
         # нужно добавить свой код сюда, напишите правильную последовательность действий
 
-        self.command.do()
+        self.car.open()
+        self.car.start_engine()
+        self.car.start_moving()
 
     def stop_use(self):
         """Прекратить использование автомобиля"""
         # нужно добавить свой код сюда, напишите правильную последовательность действий
 
-        self.command.undo()
+        self.car.stop_moving()
+        self.car.stop_engine()
+        self.car.close()

@@ -125,4 +125,3 @@ class MasterCardPaymentAdapter(PaymentAdapter):
     @property
     def money(self):
         return self.payment_system.current_money()
-
