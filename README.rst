@@ -17,6 +17,35 @@
 
 * Проверить, что установлен docker. Для этого выполнить команду :code:`docker --version`. Если не установлен - установить по инструкции https://docs.docker.com/engine/install/. Выбрать конкретный раздел в зависимости от вашей ОС
 * Проверить, что установлен docker-compose. Для этого выполнить команду :code:`docker-compose --version`. Если не установлен - установить по инструкции https://docs.docker.com/compose/install/.
-* Выполнить команду :code:`docker build -t python-to-middle .` в корне проекта.
-* Настроить удаленный Docker-интерпретатор в PyCharm по инструкции https://www.jetbrains.com/help/pycharm/using-docker-as-a-remote-interpreter.html#config-docker. В качестве интерпретатора должен быть выбран *python-to-middle:latest*.
+* Выполнить команду :code:`docker-сompose build` в корне проекта.
+* Настроить удаленный Docker-Compose-интерпретатор в PyCharm по инструкции https://www.jetbrains.com/help/pycharm/using-docker-compose-as-a-remote-interpreter.html. В качестве интерпретатора должен быть выбран *app*.
 
+
+Как запустить БД?
+-----------------
+
+* Перейти в корень проекта
+* Выполнить команду :code:`docker-compose up -d db`
+* Выполнить команду :code:`docker ps` и убедиться, что запущен контейнер с *postgresql*, порт 8432
+
+
+Как выполнить миграции приложения?
+----------------------------------
+
+* Перейти в корень проекта
+* Выполнить команду :code:`python manage.py migrate`
+
+
+Как запустить приложение?
+-------------------------
+
+* Перейти в корень проекта
+* Выполнить команду :code:`python manage.py runserver 0.0.0.0:8000`
+* Перейти в браузер на страницу http://0.0.0.0:8000/ и убедиться, что открылась стартовая страница
+
+
+Как запустить тест?
+-------------------
+
+* Перейти в корень проекта
+* Выполнить команду :code:`python manage.py test --keepdb БЛОК.ТЕМА.ТАСК`

@@ -1,0 +1,25 @@
+version: "3.6"
+
+services:
+  db:
+    image: postgres:13.6-alpine
+    environment:
+      - POSTGRES_USER=course
+      - POSTGRES_PASSWORD=course
+      - POSTGRES_DB=python_to_middle
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "8432:5432"
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+
+volumes:
+  postgres_data:
