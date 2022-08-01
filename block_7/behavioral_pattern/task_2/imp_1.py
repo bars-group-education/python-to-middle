@@ -1,5 +1,5 @@
-from abc import ABCMeta, abstractmethod
-from collections import defaultdict
+from abc import ABC
+from abc import abstractmethod
 from enum import IntEnum
 
 
@@ -9,7 +9,25 @@ class Language(IntEnum):
     GERMAN = 3
 
 
-class Mediator(metaclass=ABCMeta):
+words_cat = {
+    Language.ENGLISH: 'cat',
+    Language.RUSSIAN: 'кот',
+    Language.GERMAN: 'katze',
+}
+
+words_dog = {
+    Language.ENGLISH: 'dog',
+    Language.RUSSIAN: 'собака',
+    Language.GERMAN: 'hund',
+}
+words_list = [words_cat, words_dog]
+dictionary = dict()
+for words in words_list:
+    for word in words.values():
+        dictionary.update({word: words})
+
+
+class Mediator(ABC):
     """ Абстрактный класс медиатора - переводчика """
 
     @abstractmethod
@@ -75,43 +93,7 @@ class Translator(Mediator):
         self.foreigners[language] = foreigner
 
     def translate(self, word: str, language_from: Language) -> str:
-        # нужно добавить свой код сюда
-        all_words = dictionary.get_all_words_by_specific_word(word, language_from)
-
-        for language_to, foreigner in self.foreigners.items():
-            foreigner.last_listen_word = all_words[language_to]
-
-
-class UniWords(IntEnum):
-    CAT = 1
-    DOG = 2
-
-
-class Dictionary:
-
-    def __init__(self) -> None:
-        super().__init__()
-        self._specific_to_uni = defaultdict(int)
-        self._uni_to_specific = defaultdict(dict)
-
-    def add_word(self, specific_word, language, uni_word):
-        self._specific_to_uni[(specific_word, language)] = uni_word
-        self._uni_to_specific[uni_word][language] = specific_word
-
-    def get_all_words_by_specific_word(self, specific_word, language):
-        uni_word = self._specific_to_uni[(specific_word, language)]
-        all_words = self._uni_to_specific[uni_word]
-
-        return all_words
-
-
-dictionary = Dictionary()
-
-dictionary.add_word('cat', Language.ENGLISH, UniWords.CAT)
-dictionary.add_word('кот', Language.RUSSIAN, UniWords.CAT)
-dictionary.add_word('katze', Language.GERMAN, UniWords.CAT)
-
-dictionary.add_word('dog', Language.ENGLISH, UniWords.DOG)
-dictionary.add_word('собака', Language.RUSSIAN, UniWords.DOG)
-dictionary.add_word('hund', Language.GERMAN, UniWords.DOG)
-
+        for language in self.foreigners:
+            self.foreigners[language].last_listen_word = dictionary[word][
+                language
+            ]

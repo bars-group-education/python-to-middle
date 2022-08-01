@@ -1,12 +1,46 @@
-from abc import ABCMeta, abstractmethod
-from collections import defaultdict
-from enum import IntEnum
+from abc import abstractmethod, ABCMeta
+from enum import IntEnum, Enum
 
 
 class Language(IntEnum):
     RUSSIAN = 1
     ENGLISH = 2
     GERMAN = 3
+    FRANCE = 4
+
+
+DictionaryTranslator = {
+    Language.RUSSIAN: {
+        'кот': {
+            Language.ENGLISH: 'cat',
+            Language.GERMAN: 'katze'
+        },
+        'собака': {
+            Language.ENGLISH: 'dog',
+            Language.GERMAN: 'hund'
+        }
+    },
+    Language.ENGLISH: {
+        'cat': {
+            Language.RUSSIAN: 'кот',
+            Language.GERMAN: 'katze'
+        },
+        'dog': {
+            Language.RUSSIAN: 'собака',
+            Language.GERMAN: 'hund'
+        }
+    },
+    Language.GERMAN: {
+        'katze': {
+            Language.RUSSIAN: 'кот',
+            Language.ENGLISH: 'cat'
+        },
+        'hund': {
+            Language.RUSSIAN: 'собака',
+            Language.ENGLISH: 'dog'
+        }
+    }
+}
 
 
 class Mediator(metaclass=ABCMeta):
@@ -74,44 +108,14 @@ class Translator(Mediator):
         """
         self.foreigners[language] = foreigner
 
-    def translate(self, word: str, language_from: Language) -> str:
-        # нужно добавить свой код сюда
-        all_words = dictionary.get_all_words_by_specific_word(word, language_from)
+    def translate(self, word: str, language_from: Language):
+        language_dictionary = DictionaryTranslator.get(language_from)
 
-        for language_to, foreigner in self.foreigners.items():
-            foreigner.last_listen_word = all_words[language_to]
+        if not language_dictionary:
+            raise KeyError(f'Словарь {language_from.name} отсутствует')
 
-
-class UniWords(IntEnum):
-    CAT = 1
-    DOG = 2
-
-
-class Dictionary:
-
-    def __init__(self) -> None:
-        super().__init__()
-        self._specific_to_uni = defaultdict(int)
-        self._uni_to_specific = defaultdict(dict)
-
-    def add_word(self, specific_word, language, uni_word):
-        self._specific_to_uni[(specific_word, language)] = uni_word
-        self._uni_to_specific[uni_word][language] = specific_word
-
-    def get_all_words_by_specific_word(self, specific_word, language):
-        uni_word = self._specific_to_uni[(specific_word, language)]
-        all_words = self._uni_to_specific[uni_word]
-
-        return all_words
-
-
-dictionary = Dictionary()
-
-dictionary.add_word('cat', Language.ENGLISH, UniWords.CAT)
-dictionary.add_word('кот', Language.RUSSIAN, UniWords.CAT)
-dictionary.add_word('katze', Language.GERMAN, UniWords.CAT)
-
-dictionary.add_word('dog', Language.ENGLISH, UniWords.DOG)
-dictionary.add_word('собака', Language.RUSSIAN, UniWords.DOG)
-dictionary.add_word('hund', Language.GERMAN, UniWords.DOG)
-
+        for foreigner in self.foreigners.values():
+            if foreigner.language == language_from:
+                foreigner.last_listen_word = word
+            else:
+                foreigner.last_listen_word = language_dictionary.get(word).get(foreigner.language)
