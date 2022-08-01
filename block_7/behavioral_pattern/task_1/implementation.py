@@ -20,21 +20,44 @@ class ArithmeticOperation:
         pass
 
 
-class MinusOperation(ArithmeticOperation):
+class SimpleArithmeticOperation(ArithmeticOperation):
+
+    sign = None
+
+    def calculate(self, operation: str) -> int:
+        if self.sign in operation:
+            result = eval(operation)
+        elif self._next_handler:
+            result = self._next_handler.calculate(operation)
+        else:
+            raise ValueError
+
+        return result
+
+
+class MinusOperation(SimpleArithmeticOperation):
     """Операция вычитания"""
     # нужно добавить свой код сюда
 
+    sign = '-'
 
-class PlusOperation(ArithmeticOperation):
+
+class PlusOperation(SimpleArithmeticOperation):
     """Операция сложения"""
     # нужно добавить свой код сюда
 
+    sign = '+'
 
-class DevideOperation(ArithmeticOperation):
+
+class DevideOperation(SimpleArithmeticOperation):
     """Операция деления"""
     # нужно добавить свой код сюда
 
+    sign = '/'
 
-class MultiplyOperation(ArithmeticOperation):
+
+class MultiplyOperation(SimpleArithmeticOperation):
     """Опрация умножения"""
     # нужно добавить свой код сюда
+
+    sign = '*'
