@@ -81,6 +81,8 @@ class Translator(Mediator):
         for language_to, foreigner in self.foreigners.items():
             foreigner.last_listen_word = all_words[language_to]
 
+        return word
+
 
 class UniWords(IntEnum):
     CAT = 1
