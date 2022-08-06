@@ -16,7 +16,7 @@ class Customer(models.Model):
     registration_date = models.DateField(verbose_name='Дата регистрации')
     name = models.CharField(verbose_name='Имя', max_length=100)
     rating = models.IntegerField(verbose_name='Рейтинг', default=0)
-    change_email = models.TextField(verbose_name='Email', default='')
+    email = models.TextField(verbose_name='Email', default='')
 
     class Meta:
         db_table = 'mvcc_customer'
@@ -27,7 +27,7 @@ class Customer(models.Model):
 
     def change_rating(self, new_rating):
         if new_rating < 0:
-            raise ValueError('Рейтинг не может быть нижен 0')
+            raise ValueError('Рейтинг не может быть ниже 0')
 
         self.rating = new_rating
         self.save()
