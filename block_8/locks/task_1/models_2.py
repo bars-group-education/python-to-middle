@@ -13,21 +13,17 @@ class Account(models.Model):
 
     @transaction.atomic
     def deposit(self, amount):
-        account = self._get_instance_with_lock(self.id)
+        account = Account.objects.select_for_update().get(id=self.id)
 
         account.balance += amount
         account.save()
 
     @transaction.atomic
     def withdraw(self, amount):
-        account = self._get_instance_with_lock(self.id)
+        account = Account.objects.select_for_update().get(id=self.id)
 
         if amount > account.balance:
             raise ValueError('Сумма снятия больше, чем баланс счета')
 
         account.balance -= amount
         account.save()
-
-    @classmethod
-    def _get_instance_with_lock(cls, id_):
-        return cls.objects.select_for_update().get(id=id_)
