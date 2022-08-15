@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'block_8.mvcc.task_1.apps.MVCCTask1Config',
     'block_8.locks.task_1.apps.LocksTask1Config',
     'block_8.locks.task_2.apps.LocksTask2Config',
+    'block_9.indexes.task_1.apps.IndexesTask1Config',
+    'block_9.replication.task_1.apps.ReplicationTask1Config',
 ]
 
 MIDDLEWARE = [

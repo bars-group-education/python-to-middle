@@ -19,6 +19,7 @@ class Migration(migrations.Migration):
                 ('registration_date', models.DateField(verbose_name='Дата регистрации')),
                 ('name', models.CharField(max_length=100, verbose_name='Имя')),
                 ('rating', models.IntegerField(default=0, verbose_name='Рейтинг')),
+                ('email', models.TextField(default='', verbose_name='Email')),
             ],
             options={
                 'db_table': 'mvcc_customer',

@@ -1,3 +1,8 @@
+from block_8.acid.task_1.exceptions import (
+    BadConnection,
+)
+
+
 class BadConnectionEmulator:
 
     def __init__(self, generator) -> None:
@@ -6,7 +11,7 @@ class BadConnectionEmulator:
 
     def test(self):
         if not self.generator:
-            raise BadConnectionEmulator
+            raise BadConnection
 
 
 emulator = None

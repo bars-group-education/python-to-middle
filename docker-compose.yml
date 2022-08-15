@@ -11,6 +11,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "8432:5432"
+    command: ["-c", "wal_level=logical"]
 
   app:
     build:

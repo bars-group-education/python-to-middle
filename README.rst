@@ -17,7 +17,7 @@
 
 * Проверить, что установлен docker. Для этого выполнить команду :code:`docker --version`. Если не установлен - установить по инструкции https://docs.docker.com/engine/install/. Выбрать конкретный раздел в зависимости от вашей ОС
 * Проверить, что установлен docker-compose. Для этого выполнить команду :code:`docker-compose --version`. Если не установлен - установить по инструкции https://docs.docker.com/compose/install/.
-* Выполнить команду :code:`docker-сompose build` в корне проекта.
+* Выполнить команду :code:`docker-compose build` в корне проекта.
 * Настроить удаленный Docker-Compose-интерпретатор в PyCharm по инструкции https://www.jetbrains.com/help/pycharm/using-docker-compose-as-a-remote-interpreter.html. В качестве интерпретатора должен быть выбран *app*.
 
 
