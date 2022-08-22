@@ -31,6 +31,7 @@ class MyTestCase(TestCase):
 
     def test_filter_works_by_period(self):
         query = filter_works_by_period(date(2022, 1, 1), date(2022, 12, 31))
+        self._test_seq_scan(query)
         self.assertEqual(query.count(), 10000)
 
         query = filter_works_by_period(date(2062, 1, 1), date(2062, 12, 31))
