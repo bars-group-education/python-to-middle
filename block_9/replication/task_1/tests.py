@@ -74,6 +74,8 @@ class MyTestCase(TransactionTestCase):
             for item in C.objects.all()[:5]:
                 item.delete()
 
+            transaction.set_rollback(True)
+
         changes = get_db_changes_info()
 
         self.assertEqual(changes, {})
