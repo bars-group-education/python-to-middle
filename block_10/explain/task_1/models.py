@@ -1,9 +1,12 @@
+from datetime import date, datetime
+
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import (
     models,
 )
 
 from block_10.explain.task_1.constants import RACKS_IN_HALL_COUNT, BOARDS_IN_RACK_COUNT, PLACES_ON_BOARD_COUNT
+from block_10.explain.task_1.enums import Location
 
 
 class Person(models.Model):
@@ -69,6 +72,7 @@ class BookCard(models.Model):
     number = models.CharField(
         'Номер',
         max_length=25,
+        default=lambda: str(int(datetime.now().timestamp())),
     )
     book = models.ForeignKey(
         Book,
@@ -120,8 +124,8 @@ class Board(models.Model):
 class Place(models.Model):
     """Место."""
 
-    number = models.SmallIntegerField(
-        'Номер',
+    serial_number = models.SmallIntegerField(
+        'Порядковый номер',
         validators=[MinValueValidator(1), MaxValueValidator(PLACES_ON_BOARD_COUNT)],
     )
     rack = models.ForeignKey(
@@ -152,7 +156,7 @@ class Placing(models.Model):
     )
     end_date = models.DateField(
         'Дата окончания',
-        null=True,
+        default=date.max,
     )
 
 
@@ -205,6 +209,10 @@ class LibraryCardEntry(models.Model):
         on_delete=models.CASCADE,
         related_name='entries',
         verbose_name='Карточка книги',
+    )
+    location = models.PositiveSmallIntegerField(
+        'Статус',
+        choices=Location.choices,
     )
     issue_date = models.DateField(
         'Дата выдачи',
